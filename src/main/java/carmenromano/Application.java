@@ -1,15 +1,23 @@
 package carmenromano;
 
+import carmenromano.enums.Genere;
+import carmenromano.enums.Periodicità;
+
+import java.time.Year;
 import java.util.UUID;
 
 public class Application {
 
     public static void main(String[] args) {
-        UUID randomUUID = UUID.randomUUID();
-        String uuid = randomUUID.toString();
-        if (uuid.length() > 13) {
-            uuid = uuid.substring(0, 13);
-        }
-        System.out.println("ID generated = " + uuid);
+        Archivio archivio = new Archivio();
+
+        archivio.riempiConLibriCasuali();
+        archivio.riempiConRivisteCasuali();
+        System.out.println(archivio);
+
+        archivio.aggiungiLibro("Titolo1",Genere.FANTASY,"Frank");
+        archivio.aggiungiRivista("Titolo2", Periodicità.SEMESTRALE);
+
+        archivio.searchByISBN("fe3ddb59-704b");
     }
 }
