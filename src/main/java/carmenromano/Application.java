@@ -9,10 +9,7 @@ import carmenromano.enums.Periodicità;
 import java.time.Year;
 import java.util.List;
 import java.util.Scanner;
-
 import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
 
 public class Application {
     public static void main(String[] args) {
@@ -31,7 +28,8 @@ public class Application {
                 System.out.println("4. Ricerca tramite ISBN");
                 System.out.println("5. Ricerca tramite anno");
                 System.out.println("6. Eliminare un elemento dall'archivio tramite ISBN");
-                System.out.println("7 Visualizzare il nostro archivio");
+                System.out.println("7. Visualizzare il nostro archivio");
+                System.out.println("8. Salvare l'archivio su disco");
                 System.out.println("0. Uscire");
 
                 int scelta = scanner.nextInt();
@@ -59,10 +57,14 @@ public class Application {
                     case 7:
                         visualizzaTuttiGliElementi(archivio);
                         break;
-                    case 0:
-                        inCorso = false;
+                    case 8:
+                        salvaArchivioSuDisco(archivio, scanner);
                         break;
 
+                    case 0:
+                        inCorso = false;
+                        System.out.println("Uscita...");
+                        break;
                     default:
                         System.out.println("Scelta non valida. Riprova.");
                         break;
@@ -93,18 +95,15 @@ public class Application {
                 case 2:
                     genere = Genere.THRILLER;
                     break;
-
                 case 3:
                     genere = Genere.AUTOBIOGRAFICO;
                     break;
-
                 case 4:
                     genere = Genere.AVVENTURA;
                     break;
                 case 5:
                     genere = Genere.AZIONE;
                     break;
-
                 default:
                     System.out.println("Genere non valido. Libro non creato.");
                     return;
@@ -215,4 +214,21 @@ public class Application {
             }
         }
     }
+
+    private static void salvaArchivioSuDisco(Archivio archivio, Scanner scanner) {
+        System.out.println("Vuoi creare un nuovo archivio?");
+        System.out.println("1) Si");
+        System.out.println("2) No");
+        int sceltaUtente = scanner.nextInt();
+        scanner.nextLine();
+        if (sceltaUtente == 1) {
+            System.out.println("Inserisci il nome del file (senza estensione):");
+            String nomeFile = scanner.nextLine();
+            archivio.salvaSuDisco(nomeFile, archivio.getCatalogoList());
+        } else {
+            archivio.salvaSuDisco("archivio", archivio.getCatalogoList());
+        }
+        System.out.println("Dati salvati con successo su disco.");
+    }
+
 }

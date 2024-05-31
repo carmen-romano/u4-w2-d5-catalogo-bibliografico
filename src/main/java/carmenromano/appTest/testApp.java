@@ -21,7 +21,6 @@ public class testApp {
         archivio.aggiungiRivista("Titolo2", Periodicità.SEMESTRALE);
         List<Catalogo> libriTrovati = archivio.searchByISBN("ISBN-12345678913");
         System.out.println("Libro trovato:" + libriTrovati);
-
         archivio.removeByIsbn("ISBN-12345678913");
 
         List<Catalogo> libriTrovati2 = archivio.searchByISBN("ISBN-12345678913");
@@ -32,6 +31,7 @@ public class testApp {
 
         List<Libri> cercoPerAutore = archivio.searchByAutore("Frank");
         System.out.println("Libri trovati tramite ricerca autore:" + cercoPerAutore);
+
 
 
     }

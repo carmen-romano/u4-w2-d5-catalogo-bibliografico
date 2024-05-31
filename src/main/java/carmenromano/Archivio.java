@@ -2,6 +2,10 @@ package carmenromano;
 import carmenromano.enums.Genere;
 import carmenromano.enums.Periodicità;
 import com.github.javafaker.Faker;
+import org.apache.commons.io.FileUtils;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +86,21 @@ public class Archivio {
     public void setCatalogoList(List<Catalogo> catalogoList) {
         this.catalogoList = catalogoList;
     }
+
+
+    public void salvaSuDisco(String name, List<Catalogo> catalogoList) {
+        File archivioDisc = new File("src/" + name + ".txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(archivioDisc))) {
+            for (Catalogo elemento : catalogoList) {
+                writer.write(elemento.toString() + "|||");
+                writer.newLine();
+            }
+            System.out.println("Dati salvati con successo su disco.");
+        } catch (IOException e) {
+            System.err.println("Errore durante il salvataggio su disco: " + e.getMessage());
+        }
+    }
+
 
 
     @Override
