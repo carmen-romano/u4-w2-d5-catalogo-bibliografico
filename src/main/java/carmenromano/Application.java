@@ -1,41 +1,52 @@
 package carmenromano;
 
-import carmenromano.enums.Genere;
-import carmenromano.enums.Periodicità;
-import org.apache.commons.io.FileUtils;
+import carmenromano.Libri;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.time.Year;
-import java.util.UUID;
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
 
 public class Application {
-
     public static void main(String[] args) {
-        Archivio archivio = new Archivio("src/archivio1.txt");
-        try {
-            archivio.riempiConLibriCasuali();
-            archivio.riempiConRivisteCasuali();
-            File archivioDisc = new File("src/archivio1.txt");
+        Archivio archivio = new Archivio();
+        archivio.riempiConLibriCasuali();
+        archivio.riempiConRivisteCasuali();
+        Scanner scanner = new Scanner(System.in);
 
-            for (Catalogo elemento : archivio.getCatalogoList()) {
-                FileUtils.writeStringToFile(archivioDisc, elemento + System.lineSeparator(), StandardCharsets.UTF_8, true);
+        while (true) {
+            try {
+                System.out.println("Cosa vuoi fare?");
+                System.out.println("1. Trovare un libro tramite autore");
+                System.out.println("2. Uscire");
+
+                int scelta = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (scelta) {
+                    case 1:
+                        System.out.println("Inserisci l'autore:");
+                        String autore = scanner.nextLine();
+                        List<Libri> autoreLibro = archivio.searchByAutore(autore);
+                        if (autoreLibro.isEmpty()) {
+                            System.out.println("Nessun libro trovato per l'autore specificato.");
+                        } else {
+                            System.out.println("Libri trovati:");
+                            for (Libri libro : autoreLibro) {
+                                System.out.println(libro);
+                            }
+                        }
+                        break;
+                    case 2:
+                        System.exit(0);
+                        break;
+                    default:
+                        System.out.println("Scelta non valida. Riprova.");
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Inserisci un input valido");
+                scanner.nextLine();
             }
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
         }
-
-        System.out.println(archivio);
-
-        archivio.aggiungiLibro("Titolo1", Genere.FANTASY, "Frank");
-        archivio.aggiungiRivista("Titolo2", Periodicità.SEMESTRALE);
-
-        archivio.searchByISBN("fe3ddb59-704b");
     }
 }

@@ -19,7 +19,6 @@ public class fileMain {
             for (Catalogo elemento : archivio.getCatalogoList()) {
                 FileUtils.writeStringToFile(archivioDisc, elemento + System.lineSeparator(), StandardCharsets.UTF_8, true);
             }
-
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }

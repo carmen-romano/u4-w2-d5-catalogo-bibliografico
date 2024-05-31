@@ -1,25 +1,19 @@
 package carmenromano;
-
 import carmenromano.enums.Genere;
 import carmenromano.enums.Periodicità;
 import com.github.javafaker.Faker;
-
 import java.time.Year;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class Archivio {
     private List<Catalogo> catalogoList;
-    private String fileName;
 
-    public Archivio(String fileName) {
+    public Archivio() {
         super();
         this.catalogoList = new ArrayList<>();
-        this.fileName= fileName;
     }
 
     public void riempiConLibriCasuali() {
@@ -44,11 +38,18 @@ public class Archivio {
     }
 
     public void aggiungiLibro(String titolo,Genere genere, String autore) {
+        if (titolo.isEmpty() || autore.isEmpty()) {
+            System.out.println("Aggiungi un titolo e/o un autore");
+        }
         catalogoList.add(new Libri(titolo,genere,autore));
     }
-    public void aggiungiRivista(String titolo, Periodicità periodicità) {
+    public void aggiungiRivista(String titolo, Periodicità periodicità){
+        if (titolo.isEmpty()){
+            System.out.println("Aggiungi un titolo!");
+        }
         catalogoList.add(new Riviste(titolo, periodicità));
     }
+
     public List<Catalogo> searchByISBN(String ISBN) {
         return catalogoList.stream().filter(elemento -> elemento.getCodiceISBN().equals(ISBN))
                 .collect(Collectors.toList());
@@ -82,10 +83,12 @@ public class Archivio {
         this.catalogoList = catalogoList;
     }
 
+
     @Override
     public String toString() {
         return "Archivio{" +
                 "catalogoList=" + catalogoList +
                 '}';
-    }
 }
+    }
+

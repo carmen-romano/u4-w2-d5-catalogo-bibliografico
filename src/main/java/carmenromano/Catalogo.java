@@ -2,7 +2,6 @@ package carmenromano;
 
 import java.time.Year;
 import java.util.Random;
-import java.util.UUID;
 
 public abstract class Catalogo {
     protected String codiceISBN;
@@ -10,8 +9,6 @@ public abstract class Catalogo {
     protected Year annoPubblicazione;
     protected int numeroPagine;
     private static long codiceISBNCounter = 12345678912L;
-
-
 
     public Catalogo(String titolo) {
         this.titolo = titolo;
