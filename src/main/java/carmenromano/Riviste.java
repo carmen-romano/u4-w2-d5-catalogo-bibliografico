@@ -11,5 +11,23 @@ public class Riviste extends Catalogo {
         this.periodicità = periodicità;
     }
 
+    public Periodicità getPeriodicità() {
+        return periodicità;
+    }
+
+    public void setPeriodicità(Periodicità periodicità) {
+        this.periodicità = periodicità;
+    }
+
+    @Override
+    public String toString() {
+        return "Riviste{" +
+                "periodicità=" + periodicità +
+                ", codiceISBN='" + codiceISBN + '\'' +
+                ", titolo='" + titolo + '\'' +
+                ", annoPubblicazione=" + annoPubblicazione +
+                ", numeroPagine=" + numeroPagine +
+                '}';
+    }
 }
 

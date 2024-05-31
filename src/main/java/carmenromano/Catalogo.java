@@ -9,19 +9,22 @@ public abstract class Catalogo {
     protected String titolo;
     protected Year annoPubblicazione;
     protected int numeroPagine;
-    private static int codiceISBNCounter = 1000;
+    private static long codiceISBNCounter = 12345678912L;
+
+
 
     public Catalogo(String titolo) {
         this.titolo = titolo;
         this.annoPubblicazione = Year.of(generateRandomYear());
-        this.codiceISBN = generateUUID();
+        this.codiceISBN = generateISBN();
         this.numeroPagine = generateRandomPag();
     }
 
-    private String generateUUID() {
+    private String generateISBN() {
         codiceISBNCounter++;
         return "ISBN-" + codiceISBNCounter;
     }
+
     private int generateRandomYear() {
         Random random = new Random();
         return random.nextInt(1990, 2024);
